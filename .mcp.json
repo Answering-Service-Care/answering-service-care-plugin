@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "answering-service-care-customer": {
+    "answering-service-care": {
       "type": "http",
       "url": "https://mcp.answeringservicecare.com/api/v2/mcp"
     }

@@ -6,7 +6,7 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 EXPECTED_ENDPOINT = "https://mcp.answeringservicecare.com/api/v2/mcp"
-EXPECTED_NAME = "answering-service-care-customer"
+EXPECTED_NAME = "answering-service-care"
 EXPECTED_SKILLS = {
     "setup",
     "answering-service-care",

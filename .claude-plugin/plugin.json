@@ -1,5 +1,5 @@
 {
-  "name": "answering-service-care-customer",
+  "name": "answering-service-care",
   "version": "1.0.0",
   "description": "Securely connect Claude to your Answering Service Care account to review messages, manage follow-up to-dos and authorized on-call coverage, and check permitted balances with a secure payment-portal handoff.",
   "author": {
