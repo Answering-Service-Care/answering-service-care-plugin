@@ -1,4 +1,4 @@
-# Answering Service Care customer plugin
+# Answering Service Care
 
 Customer workflows for **Claude and ChatGPT** in one package, using the same
 OAuth-protected Answering Service Care (ASC) customer MCP server:
@@ -9,6 +9,12 @@ This repository is intentionally separate from
 [Answering-Service-Care/agent-skills](https://github.com/Answering-Service-Care/agent-skills),
 which retains the public research/pricing and docs MCP integrations. Internal
 Admin and Support plugins must remain in private repositories.
+
+**Plugin identity:** Both Claude and portable manifests use `answering-service-care`.
+The legacy `agent-skills` repository has a *separate* research manifest with the
+same name. Before distributing or publishing both manifests as separate plugins,
+rename the research manifest or designate the new customer package as the sole
+published plugin identity. Keep the existing public research MCP server intact.
 
 ## Repository layout
 
@@ -72,6 +78,5 @@ See [release checklist](docs/RELEASE-CHECKLIST.md) and
 ## Separation and migration
 
 The legacy [agent-skills PR #2](https://github.com/Answering-Service-Care/agent-skills/pull/2)
-is a draft extraction source only. Keep its public research files untouched.
-Once this plugin's PR has merged and all customer skills are verified here,
-close that legacy PR as superseded without merging it.
+was closed as superseded without merging. The new customer plugin's initial PR
+#1 was merged into this repository. Keep the public research files unchanged.

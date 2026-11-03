@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
   "mcpServers": {
-    "answering-service-care-customer": {
+    "answering-service-care": {
       "type": "streamable-http",
       "url": "https://mcp.answeringservicecare.com/api/v2/mcp",
       "extensions": {

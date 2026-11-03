@@ -1,6 +1,6 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "answering-service-care-customer",
+  "name": "answering-service-care",
   "version": "1.0.0",
   "description": "Customer-authorized Answering Service Care workflows for messages, follow-up to-dos, on-call schedules, contact delivery, and secure billing handoff.",
   "author": {

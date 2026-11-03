@@ -21,8 +21,10 @@ layout while adding portable OpenAI/Agent Plugins metadata.
 1. Relocate `claude/skills/*` into a single root `skills/*` directory.
 2. Relocate `claude/.claude-plugin/plugin.json` and `claude/.mcp.json`
    to the new repository root; use plugin identity
-   `answering-service-care-customer` to avoid conflicting with the
-   `answering-service-care` public research plugin.
+   `answering-service-care` to match the customer-facing brand. Note that
+   the legacy public research `agent-skills/plugin.json` also uses
+   `answering-service-care`; do not publish or install both as distinct
+   plugin packages under the same identifier without resolving that collision.
 3. Add portable root `plugin.json` and `mcp.json` for ChatGPT without
    duplicating skills.
 4. Retain ASC-specific secure billing handoff only in ASC's customer plugin.
@@ -32,11 +34,10 @@ layout while adding portable OpenAI/Agent Plugins metadata.
 
 ## Release sequence
 
-1. Review and merge the new customer plugin PR into the new repository.
+1. The customer plugin initial PR #1 was merged into the new repository.
 2. Verify both Claude and ChatGPT OAuth flows using a dedicated test account.
 3. Verify account/phone RBAC, Calendar Management and Billing boundaries.
 4. Submit each platform independently and wait for approval.
-5. Link the new verified commit in legacy ASC agent-skills PR #2, then close
-   that older draft as superseded **without merging it**.
+5. The legacy ASC agent-skills PR #2 was closed as superseded **without merging**.
 
 Do not expose internal service keys or production test data in this repo.
