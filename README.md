@@ -68,6 +68,15 @@ actual client registration approach and callback URLs with the customer
 server and platform before publication. Do not guess OAuth client secrets,
 scopes or token URLs.
 
+## Customer documentation
+
+A [GitBook-ready customer connection guide](docs/GITBOOK-MCP-CUSTOMER-GUIDE.md)
+and [MCP navigation/publishing notes](docs/GITBOOK-MCP-NAVIGATION.md)
+are available for review. The proposed GitBook location is **API Reference
+> MCP > Connect to Claude or ChatGPT**. This is a draft; merging this
+repository does not publish the guide to GitBook. Review live feature
+availability, OAuth permissions, and billing behavior before publication.
+
 ## Validation
 
 Run `python3 tests/test_package.py` for offline structural checks.

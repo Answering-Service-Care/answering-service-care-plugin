@@ -25,6 +25,15 @@
 - [ ] Validate messages, follow-ups, schedules, contact delivery and billing.
 - [ ] Verify separate Client AI MCP tools before adding any AI management skills.
 
+## Customer documentation (GitBook)
+
+- [ ] Verify the MCP documentation's existing GitBook navigation; place one
+      "Connect to Claude or ChatGPT" page under API Reference > MCP.
+- [ ] Reconcile the public customer connector setup page with actual OAuth
+      permissions, write-tool availability, and billing handoff.
+- [ ] Review the draft customer guide in docs/GITBOOK-MCP-CUSTOMER-GUIDE.md.
+- [ ] Publish the verified guide in GitBook and add its live URL to the README.
+
 ## Publication
 - [ ] Claude: test `claude --plugin-dir .` then submit root plugin path `.`.
 - [ ] ChatGPT: submit With MCP after authenticated remote MCP testing.
