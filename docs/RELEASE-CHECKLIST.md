@@ -34,10 +34,12 @@
 - [x] ChatGPT listing: subtitle within 30 characters, support URL, no billing
       in the listing text; `scripts/build_chatgpt_package.py` builds the ZIP
       without `billing-handoff`.
-- [ ] ChatGPT listing: square logo under `assets/` (at least 48 px) and a demo
-      video URL.
+- [x] ChatGPT listing logo: `assets/logo.png`, the connector's 512 px icon.
+- [ ] ChatGPT listing: a demo video URL.
 - [ ] ChatGPT domain check: serve the portal's token at
-      `/.well-known/openai-apps-challenge` on mcp.answeringservicecare.com.
+      `/.well-known/openai-apps-challenge` on mcp.answeringservicecare.com
+      (gateway support: Kauneonga/liberty-platform#5664, then set
+      `OPENAI_APPS_CHALLENGES` on the ASC Worker).
 - [ ] ChatGPT: confirm the upload validator accepts `mcp.json`'s
       `extensions."com.openai".auth` on the server entry (the generic
       agent-plugins.org MCP schema rejects extra server properties).

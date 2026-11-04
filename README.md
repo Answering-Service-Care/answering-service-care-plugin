@@ -89,8 +89,9 @@ every folder under `skills/`, so the build drops `billing-handoff` and the
 router skill's billing row. The ChatGPT listing text in `plugin.json` doesn't
 mention billing either. Claude keeps the billing skill.
 
-Before submitting, the listing still needs a square `logo` (at least 48 px,
-under `assets/`), a demo video, and the domain-check token served at
+The listing logo, `assets/logo.png`, is the 512 px icon the ASC connector
+already serves; swap it here if marketing prefers another. Before submitting,
+the listing still needs a demo video and the domain-check token served at
 `https://mcp.answeringservicecare.com/.well-known/openai-apps-challenge`.
 See the ChatGPT review set in [TEST-CASES.md](docs/TEST-CASES.md).
 

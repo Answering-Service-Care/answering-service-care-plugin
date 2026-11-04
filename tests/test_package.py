@@ -3,6 +3,7 @@
 import json
 import pathlib
 import re
+import struct
 import sys
 import tempfile
 import zipfile
@@ -58,6 +59,9 @@ def check():
     assert len(listing["longDescription"]) <= 4000
     assert len(listing["defaultPrompt"]) <= 3
     assert all(len(p) <= 128 for p in listing["defaultPrompt"])
+    logo = ROOT / listing["logo"]
+    width, height = struct.unpack(">II", logo.read_bytes()[16:24])
+    assert logo.read_bytes()[:8] == b"\x89PNG\r\n\x1a\n" and width == height >= 48, (width, height)
     for key in ("websiteURL", "supportURL", "privacyPolicyURL", "termsOfServiceURL"):
         assert listing[key].startswith("https://"), key
     listing_text = json.dumps([portable["description"], listing]).lower()
@@ -106,7 +110,7 @@ def check_chatgpt_package():
             names = set(zf.namelist())
             skills = {n.split("/")[1] for n in names if n.startswith("skills/")}
             assert skills == EXPECTED_SKILLS - {"billing-handoff"}, skills
-            assert {"plugin.json", "mcp.json", "LICENSE"} <= names, names
+            assert {"plugin.json", "mcp.json", "LICENSE", "assets/logo.png"} <= names, names
             assert not any(n.startswith(".claude-plugin/") or n == ".mcp.json" for n in names), names
             router = zf.read("skills/answering-service-care/SKILL.md").decode("utf-8")
             assert "billing-handoff" not in router

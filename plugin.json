@@ -26,6 +26,7 @@
         "shortDescription": "Messages and on-call coverage",
         "longDescription": "Connect your Answering Service Care customer account to review messages, manage authorized follow-ups and on-call schedules, and update how contacts receive messages.",
         "developerName": "Answering Service Care",
+        "logo": "./assets/logo.png",
         "category": "Productivity",
         "capabilities": [
           "Read",
