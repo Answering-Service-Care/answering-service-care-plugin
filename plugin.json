@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "answering-service-care",
   "version": "1.0.0",
-  "description": "Customer-authorized Answering Service Care workflows for messages, follow-up to-dos, on-call schedules, contact delivery, and secure billing handoff.",
+  "description": "Customer-authorized Answering Service Care workflows for messages, follow-up to-dos, on-call schedules and contact delivery.",
   "author": {
     "name": "Answering Service Care",
     "url": "https://answeringservicecare.com/"
@@ -23,8 +23,8 @@
       "onboardingSkill": "./skills/setup/SKILL.md",
       "interface": {
         "displayName": "Answering Service Care",
-        "shortDescription": "Manage your answering-service messages and on-call coverage",
-        "longDescription": "Connect your Answering Service Care customer account to review messages, manage authorized follow-ups and on-call schedules, update how contacts receive messages, and view permitted balances with a secure link to the ASC payment portal.",
+        "shortDescription": "Messages and on-call coverage",
+        "longDescription": "Connect your Answering Service Care customer account to review messages, manage authorized follow-ups and on-call schedules, and update how contacts receive messages.",
         "developerName": "Answering Service Care",
         "category": "Productivity",
         "capabilities": [
@@ -32,12 +32,13 @@
           "Write"
         ],
         "websiteURL": "https://answeringservicecare.com/",
+        "supportURL": "https://answeringservicecare.com/contact-us/",
         "privacyPolicyURL": "https://answeringservicecare.com/privacy-policy/",
         "termsOfServiceURL": "https://answeringservicecare.com/terms-and-conditions/",
         "defaultPrompt": [
           "Show me the messages I need to follow up on today.",
           "Who is on call for my line tonight?",
-          "Check my ASC account balance and show me where to pay securely."
+          "Which To Dos are still open on my account?"
         ]
       }
     }

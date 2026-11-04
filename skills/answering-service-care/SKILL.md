@@ -1,6 +1,6 @@
 ---
 name: answering-service-care
-description: Pick the right customer skill for an Answering Service Care request. Use for broad requests, questions about available customer workflows, or tasks spanning messages, on-call coverage, contacts, follow-ups and billing.
+description: Pick the right customer skill for an Answering Service Care request. Use for broad requests, questions about available customer workflows, or tasks spanning messages, on-call coverage, contacts and follow-ups.
 ---
 
 # Pick the right skill

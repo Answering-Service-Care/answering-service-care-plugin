@@ -82,6 +82,18 @@ Use the portable `plugin.json`, `mcp.json` and shared `skills/` at
 the repository root. Submit using the **With MCP** flow, not Skills only,
 because the integration requires the remote authenticated ASC MCP.
 
+Build the ZIP to upload with `python3 scripts/build_chatgpt_package.py`
+(written to `dist/`). The ChatGPT package leaves out billing: OpenAI's
+commerce rules don't allow a link to pay a service bill, and ChatGPT picks up
+every folder under `skills/`, so the build drops `billing-handoff` and the
+router skill's billing row. The ChatGPT listing text in `plugin.json` doesn't
+mention billing either. Claude keeps the billing skill.
+
+Before submitting, the listing still needs a square `logo` (at least 48 px,
+under `assets/`), a demo video, and the domain-check token served at
+`https://mcp.answeringservicecare.com/.well-known/openai-apps-challenge`.
+See the ChatGPT review set in [TEST-CASES.md](docs/TEST-CASES.md).
+
 The OAuth manifest intentionally relies on OAuth discovery. Confirm the
 actual client registration approach and callback URLs with the customer
 server and platform before publication. Do not guess OAuth client secrets,

@@ -31,6 +31,17 @@
 ## Publication
 - [ ] Claude: test `claude --plugin-dir .` then submit root plugin path `.`.
 - [ ] ChatGPT: submit With MCP after authenticated remote MCP testing.
+- [x] ChatGPT listing: subtitle within 30 characters, support URL, no billing
+      in the listing text; `scripts/build_chatgpt_package.py` builds the ZIP
+      without `billing-handoff`.
+- [ ] ChatGPT listing: square logo under `assets/` (at least 48 px) and a demo
+      video URL.
+- [ ] ChatGPT domain check: serve the portal's token at
+      `/.well-known/openai-apps-challenge` on mcp.answeringservicecare.com.
+- [ ] ChatGPT: confirm the upload validator accepts `mcp.json`'s
+      `extensions."com.openai".auth` on the server entry (the generic
+      agent-plugins.org MCP schema rejects extra server properties).
+- [ ] Legal sign-off on health data: OpenAI lists PHI as restricted data.
 - [ ] Prepare five positive and three negative cases (see TEST-CASES.md),
       a demo, and reviewer credentials delivered only through approved channels.
 - [ ] Obtain each platform's separate approval before claiming publication.
