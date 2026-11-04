@@ -21,6 +21,7 @@ published plugin identity. Keep the existing public research MCP server intact.
 | Path | Purpose |
 |---|---|
 | `.claude-plugin/plugin.json` | Claude plugin identity and metadata |
+| `.claude-plugin/marketplace.json` | Claude marketplace that lists this plugin, so customers can install it from this repository |
 | `.mcp.json` | Claude customer MCP server configuration |
 | `plugin.json` | Portable Agent Plugins / OpenAI manifest |
 | `mcp.json` | Portable remote MCP configuration with OAuth declaration |
@@ -52,10 +53,29 @@ and permission boundaries are verified.
 
 ## Claude
 
-Use `claude --plugin-dir .` to test from the repository root.
-For the Claude Directory, submit this repository with plugin path `.`
-after the code has merged to `main` and OAuth has passed live testing.
-The root Claude layout follows `Kauneonga/kauneonga-plugin`.
+Install in Claude Code (2.1.275 or later):
+
+```
+/plugin install answering-service-care --marketplace Answering-Service-Care/answering-service-care-plugin
+```
+
+On older versions, add the marketplace first, then install:
+
+```
+/plugin marketplace add Answering-Service-Care/answering-service-care-plugin
+/plugin install answering-service-care@answering-service-care
+```
+
+A Claude Team or Enterprise owner can roll it out to everyone under
+Organization settings > Plugins & skills by adding this repository.
+After installing, the customer signs in with their Client Portal login when
+Claude first uses the connector.
+
+Use `claude --plugin-dir .` to test from the repository root, and
+`claude plugin validate --strict .` to check the marketplace and plugin
+manifests. For the Claude Directory, submit this repository with plugin path
+`.` after OAuth has passed live testing. The root Claude layout follows
+`Kauneonga/kauneonga-plugin`.
 
 ## ChatGPT / Codex
 

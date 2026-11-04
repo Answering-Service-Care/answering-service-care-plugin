@@ -1,0 +1,26 @@
+{
+  "name": "answering-service-care",
+  "owner": {
+    "name": "Answering Service Care",
+    "email": "success@answeringservicecare.com"
+  },
+  "metadata": {
+    "description": "The Answering Service Care customer plugin for Claude: your messages, follow-up To Dos and on-call coverage, with your own Client Portal login."
+  },
+  "plugins": [
+    {
+      "name": "answering-service-care",
+      "source": "./",
+      "description": "Securely connect Claude to your Answering Service Care account to review messages, manage follow-up to-dos and authorized on-call coverage, and check permitted balances with a secure payment-portal handoff.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Answering Service Care",
+        "url": "https://answeringservicecare.com/"
+      },
+      "homepage": "https://answeringservicecare.com/",
+      "repository": "https://github.com/Answering-Service-Care/answering-service-care-plugin",
+      "license": "MIT",
+      "category": "productivity"
+    }
+  ]
+}

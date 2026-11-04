@@ -2,9 +2,12 @@
 
 ## Packaging
 - [x] Public ASC customer repository created.
-- [ ] Merge the reviewed `.claude-plugin/`, `.mcp.json`, `plugin.json`,
+- [x] Merge the reviewed `.claude-plugin/`, `.mcp.json`, `plugin.json`,
       `mcp.json` and single shared `skills/` tree into `main`.
-- [ ] Run offline tests and official platform schema validators.
+- [x] Claude marketplace file; `claude plugin validate --strict` passes for
+      the plugin and the marketplace, and a clean Claude Code install loads
+      the six skills and the connector.
+- [ ] Run the ChatGPT plugin schema validation.
 - [ ] Confirm no secrets, production customer records, internal Support/Admin
       tools, or duplicated skills.
 - [ ] Check license, copyright, approved assets and production URLs.

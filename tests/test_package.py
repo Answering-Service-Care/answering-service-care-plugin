@@ -23,11 +23,16 @@ def read_json(path):
 
 def check():
     claude = read_json(".claude-plugin/plugin.json")
+    marketplace = read_json(".claude-plugin/marketplace.json")
     portable = read_json("plugin.json")
     cmcp = read_json(".mcp.json")
     pmcp = read_json("mcp.json")
     assert claude["name"] == portable["name"] == EXPECTED_NAME
     assert claude["version"] == portable["version"]
+    listed = marketplace["plugins"]
+    assert [p["name"] for p in listed] == [EXPECTED_NAME], listed
+    assert listed[0]["source"] == "./"
+    assert listed[0]["version"] == claude["version"]
     assert portable["$schema"].endswith("plugin.schema.json")
     assert pmcp["$schema"].endswith("mcp.schema.json")
     assert portable["repository"].endswith("/answering-service-care-plugin")
