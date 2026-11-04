@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "answering-service-care",
   "version": "1.0.0",
-  "description": "Customer-authorized Answering Service Care workflows for messages, follow-up to-dos, on-call schedules, contact delivery, and secure billing handoff.",
+  "description": "Your Answering Service Care messages, follow-up To Dos, on-call schedules and how contacts are reached, with your own Client Portal login.",
   "author": {
     "name": "Answering Service Care",
     "url": "https://answeringservicecare.com/"
@@ -23,21 +23,23 @@
       "onboardingSkill": "./skills/setup/SKILL.md",
       "interface": {
         "displayName": "Answering Service Care",
-        "shortDescription": "Manage your answering-service messages and on-call coverage",
-        "longDescription": "Connect your Answering Service Care customer account to review messages, manage authorized follow-ups and on-call schedules, update how contacts receive messages, and view permitted balances with a secure link to the ASC payment portal.",
+        "shortDescription": "Messages and on-call coverage",
+        "longDescription": "Connect your Answering Service Care account with your own Client Portal login to review messages, set up follow-up To Dos, see and change who's on call, and update how your contacts receive messages.",
         "developerName": "Answering Service Care",
+        "logo": "./assets/logo.png",
         "category": "Productivity",
         "capabilities": [
           "Read",
           "Write"
         ],
         "websiteURL": "https://answeringservicecare.com/",
+        "supportURL": "https://answeringservicecare.com/contact-us/",
         "privacyPolicyURL": "https://answeringservicecare.com/privacy-policy/",
         "termsOfServiceURL": "https://answeringservicecare.com/terms-and-conditions/",
         "defaultPrompt": [
           "Show me the messages I need to follow up on today.",
           "Who is on call for my line tonight?",
-          "Check my ASC account balance and show me where to pay securely."
+          "Which To Dos are still open on my account?"
         ]
       }
     }

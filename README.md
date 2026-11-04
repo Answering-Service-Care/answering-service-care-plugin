@@ -1,82 +1,90 @@
-# Answering Service Care
+# Answering Service Care for Claude and ChatGPT
 
-Customer workflows for **Claude and ChatGPT** in one package, using the same
-OAuth-protected Answering Service Care (ASC) customer MCP server:
+For Answering Service Care customers. Connect Claude or ChatGPT to your account
+with your own Client Portal login, then ask about your messages, To Dos and
+who's on call, and make the changes your login allows.
 
-`https://mcp.answeringservicecare.com/api/v2/mcp`
+## What you can do
 
-This repository is intentionally separate from
-[Answering-Service-Care/agent-skills](https://github.com/Answering-Service-Care/agent-skills),
-which retains the public research/pricing and docs MCP integrations. Internal
-Admin and Support plugins must remain in private repositories.
+- **Catch up on messages.** See what needs action first, add or delete a note,
+  mark a message read or unread, acknowledge it, change its status, or add a
+  new message.
+- **Follow up.** Set up a To Do (a call, text or email, now or on a schedule),
+  or delete one.
+- **Check and change who's on call.** See who's on call tonight and who backs
+  them up. If your login has **Oncall Calendar Management** access, cover time
+  off, swap or move shifts, change escalation levels, and update your on-call
+  contacts and how each one is reached.
+- **See your balance (Claude).** If your login has billing access, see your
+  balance and get a secure link to pay in the Client Portal.
 
-**Plugin identity:** Both Claude and portable manifests use `answering-service-care`.
-The legacy `agent-skills` repository has a *separate* research manifest with the
-same name. Before distributing or publishing both manifests as separate plugins,
-rename the research manifest or designate the new customer package as the sole
-published plugin identity. Keep the existing public research MCP server intact.
+Try asking: "What came in overnight that needs action?", "Who's on call
+tonight?" or "Move Saturday's shift from Dr. Lee to Dr. Patel."
 
-## Repository layout
+Before any change, Claude or ChatGPT tells you exactly what it will do and asks
+you to confirm.
 
-| Path | Purpose |
-|---|---|
-| `.claude-plugin/plugin.json` | Claude plugin identity and metadata |
-| `.mcp.json` | Claude customer MCP server configuration |
-| `plugin.json` | Portable Agent Plugins / OpenAI manifest |
-| `mcp.json` | Portable remote MCP configuration with OAuth declaration |
-| `skills/` | **One shared source** for Claude and ChatGPT |
-| `docs/` | Migration, acceptance tests, and release checklist |
-| `tests/` | Offline structure and security checks |
+## What it won't do
 
-Platform manifests both use the same skill files without duplicate copies.
-Each platform must independently authenticate customers and pass OAuth tests.
+- It never asks for card or bank details, and nothing is paid in the chat.
+- It works only with the accounts your Client Portal login can see.
+- Phone lines, scripts and AI answering settings stay with our team. If you
+  ask for one of these, it tells you and suggests contacting your account
+  manager.
 
-## Customer capabilities
+## Install
 
-- Review authorized messages, activity history, and follow-up to-dos.
-- View or change authorized on-call schedules, escalation levels, calendar
-  contacts and contact-delivery methods.
-- For **ASC only**, read a limited balance with Billing permission and open
-  the **exact secure ASC payment URL supplied by the connector**.
-- Neither Claude nor ChatGPT requests card or bank details, processes
-  payments, or charges a customer.
+### Claude
 
-Backend OAuth, account membership, scope and per-line permissions are the
-source of truth. Skills do not grant access. Confirm consequential writes
-including outbound calls, SMS or emails, and verify the returned result.
+**Your whole team (Claude Team or Enterprise):** an owner of your Claude
+organization opens **Organization settings > Plugins & skills** and adds this
+repository, `Answering-Service-Care/answering-service-care-plugin`.
 
-**Excluded:** internal Admin, Super Admin or Support tools; service keys;
-code/log access; direct payments. This initial extraction does not claim
-additional Client AI management tools until the customer MCP tool inventory
-and permission boundaries are verified.
+**Claude Code:**
 
-## Claude
+```
+/plugin install answering-service-care --marketplace Answering-Service-Care/answering-service-care-plugin
+```
 
-Use `claude --plugin-dir .` to test from the repository root.
-For the Claude Directory, submit this repository with plugin path `.`
-after the code has merged to `main` and OAuth has passed live testing.
-The root Claude layout follows `Kauneonga/kauneonga-plugin`.
+On Claude Code older than 2.1.275, add the marketplace first:
 
-## ChatGPT / Codex
+```
+/plugin marketplace add Answering-Service-Care/answering-service-care-plugin
+/plugin install answering-service-care@answering-service-care
+```
 
-Use the portable `plugin.json`, `mcp.json` and shared `skills/` at
-the repository root. Submit using the **With MCP** flow, not Skills only,
-because the integration requires the remote authenticated ASC MCP.
+**Just the connector:** in Claude, open **Settings > Connectors** and add a
+custom connector with this address:
+`https://mcp.answeringservicecare.com/api/v2/mcp`.
+See the [Claude setup guide](https://answeringservicecare.com/docs/ai/ask-asc-and-mcp/mcp/claude).
 
-The OAuth manifest intentionally relies on OAuth discovery. Confirm the
-actual client registration approach and callback URLs with the customer
-server and platform before publication. Do not guess OAuth client secrets,
-scopes or token URLs.
+### ChatGPT
 
-## Validation
+Add the connector address `https://mcp.answeringservicecare.com/api/v2/mcp`
+in ChatGPT. See the
+[ChatGPT setup guide](https://answeringservicecare.com/docs/ai/ask-asc-and-mcp/mcp/chatgpt).
 
-Run `python3 tests/test_package.py` for offline structural checks.
-This is not a live OAuth test, schema certification or directory approval.
-See [release checklist](docs/RELEASE-CHECKLIST.md) and
-[acceptance cases](docs/TEST-CASES.md) before submission.
+### Sign in
 
-## Separation and migration
+The first time Claude or ChatGPT uses Answering Service Care, it opens our
+sign-in page. Sign in with your Client Portal login, enter your two-factor
+code if you use one, and allow access.
 
-The legacy [agent-skills PR #2](https://github.com/Answering-Service-Care/agent-skills/pull/2)
-was closed as superseded without merging. The new customer plugin's initial PR
-#1 was merged into this repository. Keep the public research files unchanged.
+## Your data and permissions
+
+- Each person connects with their own login, and gets the same access they
+  have in the Client Portal. Approving a change in the app never gives your
+  login more access.
+- You can disconnect at any time from your AI app's connector settings.
+- See our [privacy policy](https://answeringservicecare.com/privacy-policy/)
+  and [terms](https://answeringservicecare.com/terms-and-conditions/).
+
+## Help
+
+- [Ask ASC and MCP guide](https://answeringservicecare.com/docs/ai/ask-asc-and-mcp/mcp)
+- Your account manager, or [success@answeringservicecare.com](mailto:success@answeringservicecare.com)
+
+---
+
+Maintaining this package? See [docs/MAINTAINING.md](docs/MAINTAINING.md).
+Licensed under the [MIT License](LICENSE).
