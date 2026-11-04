@@ -38,8 +38,8 @@
 - [ ] ChatGPT listing: a demo video URL.
 - [ ] ChatGPT domain check: serve the portal's token at
       `/.well-known/openai-apps-challenge` on mcp.answeringservicecare.com
-      (gateway support: Kauneonga/liberty-platform#5664, then set
-      `OPENAI_APPS_CHALLENGES` on the ASC Worker).
+      (needs the gateway update that reads `OPENAI_APPS_CHALLENGES`, then the
+      token set on the ASC connector's Worker).
 - [ ] ChatGPT: confirm the upload validator accepts `mcp.json`'s
       `extensions."com.openai".auth` on the server entry (the generic
       agent-plugins.org MCP schema rejects extra server properties).
@@ -47,4 +47,4 @@
 - [ ] Prepare five positive and three negative cases (see TEST-CASES.md),
       a demo, and reviewer credentials delivered only through approved channels.
 - [ ] Obtain each platform's separate approval before claiming publication.
-- [ ] After migration is verified, close legacy ASC agent-skills PR #2 without merge.
+- [x] The earlier Claude-only draft in agent-skills was closed without merging.

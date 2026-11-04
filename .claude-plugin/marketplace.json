@@ -11,7 +11,7 @@
     {
       "name": "answering-service-care",
       "source": "./",
-      "description": "Securely connect Claude to your Answering Service Care account to review messages, manage follow-up to-dos and authorized on-call coverage, and check permitted balances with a secure payment-portal handoff.",
+      "description": "Check your Answering Service Care messages, set up follow-up To Dos, update who's on call and how they're reached, and see your balance with a secure link to pay in the Client Portal.",
       "version": "1.0.0",
       "author": {
         "name": "Answering Service Care",
