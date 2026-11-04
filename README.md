@@ -11,10 +11,9 @@ which retains the public research/pricing and docs MCP integrations. Internal
 Admin and Support plugins must remain in private repositories.
 
 **Plugin identity:** Both Claude and portable manifests use `answering-service-care`.
-The legacy `agent-skills` repository has a *separate* research manifest with the
-same name. Before distributing or publishing both manifests as separate plugins,
-rename the research manifest or designate the new customer package as the sole
-published plugin identity. Keep the existing public research MCP server intact.
+The public research plugin in `agent-skills` is renamed to
+`answering-service-care-research` (Answering-Service-Care/agent-skills#3), so the
+two can be published side by side. Its public research MCP server is unchanged.
 
 ## Repository layout
 
