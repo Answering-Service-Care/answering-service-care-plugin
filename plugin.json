@@ -27,6 +27,7 @@
         "longDescription": "Connect your Answering Service Care account with your own Client Portal login to review messages, set up follow-up To Dos, see and change who's on call, and update how your contacts receive messages.",
         "developerName": "Answering Service Care",
         "logo": "./assets/logo.png",
+        "composerIcon": "./assets/logo.png",
         "category": "Productivity",
         "capabilities": [
           "Read",
