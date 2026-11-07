@@ -8,8 +8,7 @@ Do not put customer skills under `claude/` or `chatgpt/` independently.
   Admin/Support tools, or secret service-key instructions in this repository.
 - Both `.mcp.json` (Claude) and `mcp.json` (portable) must use only
   `https://mcp.answeringservicecare.com/api/v2/mcp` for the customer server.
-- Do not copy the public research/pricing and documentation MCP definitions
-  from `Answering-Service-Care/agent-skills` into this customer plugin.
+- Do not add unrelated public research, pricing, documentation or privileged service tools to this customer plugin.
 - All customer actions require matching OAuth membership and backend RBAC.
   Never fabricate account IDs, phone IDs, calendar events or payment URLs.
 - Ask confirmation before writing that sends calls/texts/emails, changes
