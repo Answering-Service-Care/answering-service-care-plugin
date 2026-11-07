@@ -1,6 +1,6 @@
-# Answering Service Care for Claude and ChatGPT
+# Answering Service Care: connect your AI assistant
 
-For Answering Service Care customers. Connect Claude or ChatGPT to your account
+For Answering Service Care customers. Connect a supported AI assistant to your account
 with your own Client Portal login, then ask about your messages, To Dos and
 who's on call, and make the changes your login allows.
 
@@ -21,8 +21,8 @@ who's on call, and make the changes your login allows.
 Try asking: "What came in overnight that needs action?", "Who's on call
 tonight?" or "Move Saturday's shift from Dr. Lee to Dr. Patel."
 
-Before any change, Claude or ChatGPT tells you exactly what it will do and asks
-you to confirm.
+Before any change, your AI assistant should tell you what it proposes and ask
+you to confirm. Review changes before approving them.
 
 ## What it won't do
 
@@ -32,43 +32,93 @@ you to confirm.
   ask for one of these, it tells you and suggests contacting your account
   manager.
 
-## Install
+## Choose your AI assistant
 
-### Claude
+You can use your Client Portal account with several AI assistants. **Claude installs the complete guided plugin.** ChatGPT, Gemini, and other assistants can connect to the same MCP server where supported, but **the MCP connection alone does not automatically install the plugin's guided skills**.
 
-**Your whole team (Claude Team or Enterprise):** an owner of your Claude
-organization opens **Organization settings > Plugins & skills** and adds this
-repository, `Answering-Service-Care/answering-service-care-plugin`.
+| AI assistant | Setup | Availability |
+| --- | --- | --- |
+| **Claude** | Install the `answering-service-care` plugin and sign in | Full plugin with guided skills and MCP tools |
+| **ChatGPT** | Use an approved workspace MCP plugin (or ask a workspace admin to add it) | MCP tools; additional skills require separate distribution |
+| **Gemini Enterprise** | Ask your organization's Gemini Enterprise administrator to add the custom MCP server | MCP tools, after OAuth and tool compatibility are configured and tested |
+| **Personal Gemini** | Eligible users may connect a custom MCP app | MCP tools only; eligibility and data-handling restrictions apply |
+| **Gemini CLI, Claude Code, Codex, Cursor and other tools** | Configure the MCP server and any separately supported skills | Technical setup, varies by product |
 
-**Claude Code:**
+**MCP connection URL:** `https://mcp.answeringservicecare.com/api/v2/mcp`
 
-```
-/plugin install answering-service-care --marketplace Answering-Service-Care/answering-service-care-plugin
-```
+Use **your own Client Portal login**. Each person can only see and change what that login is permitted to access. If your Client Portal role includes billing access, you may also be able to view your balance and obtain a **secure payment link** where that tool is supported. Payments are completed in the Client Portal, never inside an AI chat.
 
-On Claude Code older than 2.1.275, add the marketplace first:
+### Claude: install the full plugin
 
-```
+1. Open [Claude](https://claude.ai) and sign in to an account with plugin access.
+2. Open **Customize > Plugins**.
+3. Choose **Add > Add marketplace > Add from a repository** and paste:
+
+   `Answering-Service-Care/answering-service-care-plugin`
+
+4. Find the **answering-service-care** plugin in the marketplace and click **Add**. If your organization's Claude admin has already distributed it, look under **Discover** instead.
+5. Start a chat and ask, **"What messages came in overnight that need action?"**
+6. When Claude asks to connect, enter your usual Client Portal web address if prompted, then sign in on the secure portal page. Complete two-factor authentication if applicable and approve access.
+
+If your organization wants to distribute this plugin to staff, its Claude owner can upload a reviewed plugin ZIP in **Organization settings > Plugins & skills**. **Public GitHub repositories cannot be directly synced to Claude organization marketplaces**; organization owners may alternatively maintain a private/internal marketplace copy for syncing.
+
+[Claude plugin help](https://support.claude.com/en/articles/13837440-use-plugins-in-claude) · [Claude organization distribution](https://support.claude.com/en/articles/13837433-manage-plugins-for-your-organization)
+
+### ChatGPT: connect through a workspace plugin
+
+If your organization has already published an approved **Answering Service Care** plugin, open **Settings > Plugins** in [ChatGPT](https://chatgpt.com), enable it, and choose it when asking a question. Sign in with your own Client Portal account when prompted.
+
+If it isn't listed, a **ChatGPT Business, Enterprise or Edu workspace administrator** needs to set it up on the web:
+
+1. Open **Plugins**, select **+ > Add custom MCP server**.
+2. Set the name to **Answering Service Care** and paste `https://mcp.answeringservicecare.com/api/v2/mcp` as the HTTPS server address.
+3. Configure OAuth sign-in, review the connection warning, then choose **Create as a plugin**.
+4. Review and test the discovered tools and permitted actions before publishing it to the appropriate workspace members.
+
+Once available, choose the plugin when composing a message and ask **"Who is on call tonight?"**. A custom MCP plugin exposes the server's tools; importing the separate guided skills requires a compatible plugin distribution process.
+
+For current ASC-specific walkthroughs, see the [ChatGPT setup guide](https://answeringservicecare.com/docs/ai/ask-asc-and-mcp/mcp/chatgpt).
+
+[ChatGPT custom MCP setup](https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt) · [Plugins in ChatGPT](https://help.openai.com/en/articles/20001256-plugins-in-chatgpt)
+
+### Gemini: connect with Google
+
+**Gemini Enterprise (managed business use):** A Gemini Enterprise or Google Cloud administrator can configure a **custom MCP server data store** using `https://mcp.answeringservicecare.com/api/v2/mcp`. The administrator must supply supported **OAuth 2.0** connection details, verify authentication, explicitly enable permitted tools, and test the experience before giving staff access. This is **not a one-click plugin installation**, and the integration has not been independently validated for this server.
+
+[Gemini Enterprise custom MCP documentation](https://docs.cloud.google.com/gemini/enterprise/docs/connectors/custom-mcp-server/set-up-custom-mcp-server)
+
+**Personal Gemini:** Google also supports custom MCP apps for eligible adults in the US using a **personal Google account**, with **Keep Activity** enabled. Work or school Google accounts are not eligible for this personal custom-app feature. If you are eligible and have confirmed that your organization's/client's privacy policy permits using the account, open [Gemini](https://gemini.google.com) on the web, go to **Settings > Connected Apps > Add a custom app**, enter `https://mcp.answeringservicecare.com/api/v2/mcp`, and follow the sign-in steps.
+
+**Do not use a personal AI account for client messages, medical information, or other confidential data without appropriate authorization.** The Gemini connection exposes MCP tools, not the repository's bundled skills. Actual OAuth support still needs testing.
+
+[Google's custom-app instructions](https://support.google.com/gemini/answer/17209137)
+
+### Other assistants (technical setup)
+
+For **Claude Code**, use the plugin marketplace command:
+
+```text
 /plugin marketplace add Answering-Service-Care/answering-service-care-plugin
 /plugin install answering-service-care@answering-service-care
 ```
 
-**Just the connector:** in Claude, open **Settings > Connectors** and add a
-custom connector with this address:
-`https://mcp.answeringservicecare.com/api/v2/mcp`.
-See the [Claude setup guide](https://answeringservicecare.com/docs/ai/ask-asc-and-mcp/mcp/claude).
+For **Gemini CLI**, configure the remote MCP server:
 
-### ChatGPT
+```bash
+gemini mcp add -t http -s user answering-service-care https://mcp.answeringservicecare.com/api/v2/mcp
+```
 
-Add the connector address `https://mcp.answeringservicecare.com/api/v2/mcp`
-in ChatGPT. See the
-[ChatGPT setup guide](https://answeringservicecare.com/docs/ai/ask-asc-and-mcp/mcp/chatgpt).
+Then follow Gemini CLI's authorization instructions. For **Codex, Cursor and other MCP-compatible agents**, add a remote Streamable HTTP MCP server with the same HTTPS address. If the tool supports importing skills, you can separately install compatible workflows from this repository's `skills/` directory.
 
-### Sign in
+[Gemini CLI MCP documentation](https://geminicli.com/docs/tools/mcp-server/)
 
-The first time Claude or ChatGPT uses Answering Service Care, it opens our
-sign-in page. Sign in with your Client Portal login, enter your two-factor
-code if you use one, and allow access.
+### Troubleshooting
+
+- **Plugin missing:** Your AI account may not support custom plugins or your organization's admin may need to enable it.
+- **Sign-in not working:** Make sure you enter the normal Client Portal address when asked. Use the secure authorization page, not a chat message, for passwords and two-factor codes.
+- **Can't access an account or action:** Your Client Portal permissions apply in every AI assistant.
+- **A skill isn't available in ChatGPT or Gemini:** Those apps may have the MCP tools without the guided skills included with the Claude package. That is expected unless the skills were installed separately.
+- **Asked to confirm a change:** Check exactly what will change before approving. Do not share card or bank details with the AI assistant.
 
 ## Your data and permissions
 
