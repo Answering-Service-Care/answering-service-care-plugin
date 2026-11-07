@@ -3,11 +3,7 @@
 One package serves Claude and ChatGPT, using the same sign-in-protected
 customer connector: `https://mcp.answeringservicecare.com/api/v2/mcp`.
 
-ASC's public research plugin, `answering-service-care-research`, lives
-separately in
-[Answering-Service-Care/agent-skills](https://github.com/Answering-Service-Care/agent-skills),
-with its own unauthenticated research server. Staff-only admin and support
-plugins stay in private repositories and are never published.
+Keep this repository limited to authenticated customer workflows. Do not add unrelated tools or additional service endpoints.
 
 ## Layout
 
@@ -35,8 +31,7 @@ Account membership, sign-in scopes and per-line permissions are enforced by
 the server; skills never grant access. Skills confirm changes before making
 them, including outbound calls, texts and emails, and check the result.
 
-Out of scope: staff-only admin and support tools, service keys, code and log
-access, and taking payments.
+Out of scope: privileged server operations, service keys, code and log access, and taking payments.
 
 ## Claude
 
@@ -75,7 +70,3 @@ live sign-in test or a directory approval. See the
 - Never commit service keys, reviewer credentials or real customer data.
 - One skills tree: no platform-specific copies of a skill.
 
-## History
-
-The earlier Claude-only draft in `agent-skills` was closed without merging;
-this repository replaced it.
