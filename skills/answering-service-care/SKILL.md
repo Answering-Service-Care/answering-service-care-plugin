@@ -14,11 +14,15 @@ customer portal; never assume availability or improvise privileged access.
 | Catch up on messages; review or update messages, notes and follow-up to-dos | `message-triage` |
 | See on-call coverage, change a shift or escalation level | `oncall-changes` |
 | Update a contact or how they receive a call, SMS, email or other delivery | `contact-delivery` |
+| A message didn't arrive, arrived late, or went to the wrong person | `message-delivery` |
+| Check upcoming on-call coverage for gaps | `coverage-check` |
+| See who has portal access, look up a contact, list the account's lines | `account-and-access` |
 | Check the balance or get the secure link to pay in the Client Portal | `billing-handoff` |
 | Set up the ASC customer connection | `setup` |
 
-**Someone wasn't reached:** check who was on call with `oncall-changes`, then
-how they are reached with `contact-delivery`.
+**Someone wasn't reached:** start with `message-delivery`. It checks the message's
+history, who was on call and how they're reached, then hands the fix to
+`oncall-changes` or `contact-delivery`.
 
 ## Access
 

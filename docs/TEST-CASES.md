@@ -23,6 +23,19 @@ test accounts and messages, and do not publish reviewer credentials.
    Use `list_accounts`, `get_asc_billing_summary`; return only permitted
    balance and exact secure `payment_url`; never capture card/bank data.
 
+## Added cases
+
+6. **Message delivery:** "Dr. Lee says she never got last night's message."
+   Find it with `search_messages` without opening it, read
+   `list_message_activities`, check `list_calendar_events` for each level
+   at that time and the contact's `list_delivery_methods`; name the likely
+   cause and change nothing until asked.
+7. **Coverage check:** "Are we covered this weekend?" Check each
+   escalation level separately; list gaps and people with no delivery
+   method. Read-only.
+8. **Access:** "Who can change our on-call calendar?" Use
+   `list_account_user_access`; don't add or remove users.
+
 ## Three negative cases
 
 1. **Cross-account access:** Guess an unrelated customer ID and request

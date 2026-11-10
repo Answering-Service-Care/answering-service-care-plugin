@@ -15,6 +15,12 @@ who's on call, and make the changes your login allows.
   them up. If your login has **Oncall Calendar Management** access, cover time
   off, swap or move shifts, change escalation levels, and update your on-call
   contacts and how each one is reached.
+- **Trace a message that didn't arrive.** See when it was sent, to whom and how,
+  and whether that matches who was on call.
+- **Check for coverage gaps.** Find hours with nobody on call, or someone on
+  shift with no way to reach them, before it causes a missed call.
+- **See who has access.** Which portal users can do what, and look up someone in
+  your contacts directory.
 - **See your balance (Claude).** If your login has billing access, see your
   balance and get a secure link to pay in the Client Portal.
 
