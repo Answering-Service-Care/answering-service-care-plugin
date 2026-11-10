@@ -18,6 +18,9 @@ EXPECTED_SKILLS = {
     "oncall-changes",
     "contact-delivery",
     "billing-handoff",
+    "message-delivery",
+    "coverage-check",
+    "account-and-access",
 }
 
 
