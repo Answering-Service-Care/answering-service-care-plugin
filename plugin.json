@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "answering-service-care",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Your Answering Service Care messages, follow-up To Dos, on-call schedules and how contacts are reached, with your own Client Portal login.",
   "author": {
     "name": "Answering Service Care",

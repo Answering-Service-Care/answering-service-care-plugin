@@ -32,9 +32,16 @@ test accounts and messages, and do not publish reviewer credentials.
    cause and change nothing until asked.
 7. **Coverage check:** "Are we covered this weekend?" Check each
    escalation level separately; list gaps and people with no delivery
-   method. Read-only.
+   method, stating the exact inspected period and its time zone. Read-only.
 8. **Access:** "Who can change our on-call calendar?" Use
    `list_account_user_access`; don't add or remove users.
+
+9. **Coverage at the window boundary:** A weekend query ends Monday at 00:00.
+   Coverage lasts exactly until that boundary, and another shift starts just outside
+   the queried period. Expected: report coverage through Monday at 00:00; do not claim
+   nothing is scheduled afterward. If a shift instead ends Sunday at 22:00, report
+   only the 22:00–00:00 gap inside the inspected period. Any follow-up about later
+   coverage needs a separate bounded read for every level.
 
 ## Three negative cases
 
