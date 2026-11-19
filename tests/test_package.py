@@ -15,6 +15,7 @@ EXPECTED_SKILLS = {
     "setup",
     "answering-service-care",
     "message-triage",
+    "follow-ups",
     "oncall-changes",
     "contact-delivery",
     "billing-handoff",
