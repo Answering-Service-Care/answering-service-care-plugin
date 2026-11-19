@@ -9,18 +9,18 @@ who's on call, and make the changes your login allows.
 - **Catch up on messages.** See what needs action first, add or delete a note,
   mark a message read or unread, acknowledge it, change its status, or add a
   new message.
-- **Follow up.** Set up a To Do (a call, text or email, now or on a schedule),
-  or delete one.
+- **Follow up.** See your open To Dos, set one up (a call, text or email, now or
+  on a schedule), delete one, or find out why a follow-up didn't go out.
 - **Check and change who's on call.** See who's on call tonight and who backs
   them up. If your login has **Oncall Calendar Management** access, cover time
-  off, swap or move shifts, change escalation levels, and update your on-call
-  contacts and how each one is reached.
+  off, swap or move shifts, add a month of shifts at once, change escalation
+  levels, and update your on-call contacts and how each one is reached.
 - **Trace a message that didn't arrive.** See when it was sent, to whom and how,
   and whether that matches who was on call.
 - **Check for coverage gaps.** Find hours with nobody on call, or someone on
   shift with no way to reach them, before it causes a missed call.
 - **See who has access.** Which portal users can do what, and look up someone in
-  your contacts directory.
+  your contacts directory or export it.
 - **See your balance (Claude).** If your login has billing access, see your
   balance and get a secure link to pay in the Client Portal.
 
@@ -152,6 +152,24 @@ Then follow Gemini CLI's authorization instructions. For **Codex, Cursor and oth
 - See our [privacy policy](https://answeringservicecare.com/privacy-policy/)
   and [terms](https://answeringservicecare.com/terms-and-conditions/).
 
+## Skills
+
+| Skill | What it does |
+|---|---|
+| `answering-service-care` | Picks the right skill for a request, and the order when a job needs several |
+| `setup` | Connects your account and checks what your login can reach |
+| `message-triage` | Separates the messages that need action now from the ones that can wait, acknowledges them, and records notes |
+| `follow-ups` | Lists, adds and closes To Dos, and finds out why a follow-up or callback didn't happen |
+| `oncall-changes` | Covers time off, swaps or moves shifts, adds many shifts at once, manages escalation levels, and answers who's on call |
+| `contact-delivery` | Updates how on-call people are reached: numbers, texts, email |
+| `message-delivery` | Traces a message that didn't arrive and finds the cause |
+| `coverage-check` | Finds gaps in upcoming on-call coverage |
+| `account-and-access` | Shows who has portal access, the contacts directory (with an export) and the account's lines |
+| `billing-handoff` | Shows your balance and the secure link to pay in the Client Portal (Claude only) |
+
+The skills only guide the order of the work. Every rule is enforced by the
+connector, which also works without this plugin.
+
 ## Help
 
 - [Ask ASC and MCP guide](https://answeringservicecare.com/docs/ai/ask-asc-and-mcp/mcp)
@@ -159,5 +177,6 @@ Then follow Gemini CLI's authorization instructions. For **Codex, Cursor and oth
 
 ---
 
-Maintaining this package? See [docs/MAINTAINING.md](docs/MAINTAINING.md).
+Maintaining this package? See [docs/MAINTAINING.md](docs/MAINTAINING.md). AI coding
+agents: see [AGENTS.md](AGENTS.md).
 Licensed under the [MIT License](LICENSE).

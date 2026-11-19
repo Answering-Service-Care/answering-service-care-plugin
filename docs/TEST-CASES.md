@@ -43,6 +43,12 @@ test accounts and messages, and do not publish reviewer credentials.
    only the 22:00–00:00 gap inside the inspected period. Any follow-up about later
    coverage needs a separate bounded read for every level.
 
+10. **Follow-up that didn't go out:** "Why didn't the follow-up text to
+    Dr. Lee go out this morning?" Find the To Do with `list_to_dos`, check
+    its schedule, recipient and the account's time zone, read any linked
+    message's `list_message_activities` and `list_message_notes`, and name
+    the likely cause. Create no test To Dos and change nothing until asked.
+
 ## Three negative cases
 
 1. **Cross-account access:** Guess an unrelated customer ID and request

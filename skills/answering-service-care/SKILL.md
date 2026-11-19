@@ -11,14 +11,18 @@ customer portal; never assume availability or improvise privileged access.
 
 | Request | Skill |
 |---|---|
-| Catch up on messages; review or update messages, notes and follow-up to-dos | `message-triage` |
-| See on-call coverage, change a shift or escalation level | `oncall-changes` |
+| Set up the ASC customer connection | `setup` |
+| Catch up on messages and find anything urgent | `message-triage` |
+| Acknowledge or update messages, add notes, read a message's history | `message-triage` |
+| See, add or close follow-up To Dos, or find out why a follow-up or callback didn't happen | `follow-ups` |
+| Who's on call now or tonight; cover time off, swap or move a shift | `oncall-changes` |
+| Add many shifts at once, or set the line's standard shift times | `oncall-changes` |
+| See, add, edit or copy escalation levels | `oncall-changes` |
 | Update a contact or how they receive a call, SMS, email or other delivery | `contact-delivery` |
 | A message didn't arrive, arrived late, or went to the wrong person | `message-delivery` |
 | Check upcoming on-call coverage for gaps | `coverage-check` |
-| See who has portal access, look up a contact, list the account's lines | `account-and-access` |
+| See who has portal access, look up or export contacts, list the account's lines | `account-and-access` |
 | Check the balance or get the secure link to pay in the Client Portal | `billing-handoff` |
-| Set up the ASC customer connection | `setup` |
 
 **Someone wasn't reached:** start with `message-delivery`. It checks the message's
 history, who was on call and how they're reached, then hands the fix to
