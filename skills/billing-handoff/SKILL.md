@@ -22,4 +22,6 @@ Never request, collect, retain or transmit card numbers, CVV, routing numbers,
 bank account numbers, payment tokens, or credentials through Claude or ChatGPT.
 Never initiate payment or charges from this skill, and never build or guess any
 other payment link. If the tool refuses account or billing access, do not try
-another identity or account to work around that restriction.
+another identity or account to work around that restriction. `list_account_user_access`
+shows who on the account has billing access, so you can tell the customer who can check
+the balance or pay.
