@@ -28,7 +28,7 @@ Do not put customer skills under `claude/` or `chatgpt/` independently.
   saying what to do when it isn't in the tool list.
 - Customers can't delete an escalation level. Skills never offer to.
 - Write for the customer: plain language, no em dashes, made-up example
-  names such as Dr. Lee and Northwind.
+  names such as Sam Lee and Northwind.
 - Add every new skill to `EXPECTED_SKILLS` in `tests/test_package.py` and to
   the skills table in `README.md`.
 - Run `python3 tests/test_package.py` before PR submission.

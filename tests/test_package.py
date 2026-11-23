@@ -108,8 +108,27 @@ def check():
                 assert "mcp.kauneonga.com" not in data
                 assert "answeringservicecare.com/mcp" not in data
     check_chatgpt_package()
+    check_review_metadata()
     check_directory_folder()
     print("PASS: manifests, single skill source, endpoint, OAuth, safety checks, ChatGPT package")
+
+
+def check_review_metadata():
+    """OpenAI's first MCP review needs exactly 5 positive and 3 negative test cases."""
+    review = read_json(f"{PLUGIN}/plugin.json")["extensions"]["com.openai"]["review"]
+    cases = review["test_cases"]
+    assert len(cases["positive"]) == 5 and len(cases["negative"]) == 3, cases
+    served = set(re.findall(r"`([a-z]+_[a-z_]+)`", (ROOT / "docs" / "TOOLS.md").read_text(encoding="utf-8")))
+    for case in cases["positive"]:
+        assert case["prompt"] and case["expected_behavior"] and len(case["description"]) <= 4000, case
+        for tool in (t.strip() for t in case["tools_triggered"].split(",")):
+            assert tool in served, f"{tool} is not a client connector tool"
+    for case in cases["negative"]:
+        assert case["prompt"] and case["description"], case
+    text = json.dumps(cases).lower()
+    for word in ("billing", "balance", "pay"):
+        assert not re.search(r"\b" + word, text), word
+    assert "test_credentials" not in review and "reviewer_instructions" not in review, "reviewer access goes in the dashboard"
 
 
 def check_directory_folder():

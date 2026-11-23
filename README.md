@@ -25,7 +25,7 @@ who's on call, and make the changes your login allows.
   balance and get a secure link to pay in the Client Portal.
 
 Try asking: "What came in overnight that needs action?", "Who's on call
-tonight?" or "Move Saturday's shift from Dr. Lee to Dr. Patel."
+tonight?" or "Move Saturday's shift from Sam Lee to Jordan Patel."
 
 When using the full guided plugin, review the proposed action and confirm it before changes are made. **A standalone MCP connection may not provide this protection**; see the MCP-only safety warning below.
 

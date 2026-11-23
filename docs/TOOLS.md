@@ -115,7 +115,7 @@ returns an error saying the limit was reached; wait a minute and retry.
 
 - The connector reads and changes data only when the person signed in asks their AI app
   to. Every tool call is logged with who made it.
-- Messages can contain personal and health information from callers. Use the connector
+- Messages can contain personal and sensitive information that callers share. Use the connector
   only with an AI app and plan your organization has approved for that data.
 - Nothing is paid through the connector, and it never asks for card or bank details.
 
