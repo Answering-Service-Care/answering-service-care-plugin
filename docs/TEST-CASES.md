@@ -25,7 +25,7 @@ test accounts and messages, and do not publish reviewer credentials.
 
 ## Added cases
 
-6. **Message delivery:** "Dr. Lee says she never got last night's message."
+6. **Message delivery:** "Sam Lee says she never got last night's message."
    Find it with `search_messages` without opening it, read
    `list_message_activities`, check `list_calendar_events` for each level
    at that time and the contact's `list_delivery_methods`; name the likely
@@ -44,7 +44,7 @@ test accounts and messages, and do not publish reviewer credentials.
    coverage needs a separate bounded read for every level.
 
 10. **Follow-up that didn't go out:** "Why didn't the follow-up text to
-    Dr. Lee go out this morning?" Find the To Do with `list_to_dos`, check
+    Sam Lee go out this morning?" Find the To Do with `list_to_dos`, check
     its schedule, recipient and the account's time zone, read any linked
     message's `list_message_activities` and `list_message_notes`, and name
     the likely cause. Create no test To Dos and change nothing until asked.

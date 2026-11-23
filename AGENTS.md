@@ -10,7 +10,10 @@ Do not put customer skills under `claude/` or `chatgpt/` independently.
 
 - Never put credentials, tokens, signing keys, production customer data,
   Admin/Support tools, or secret service-key instructions in this repository.
-- Both `plugins/answering-service-care/.mcp.json` (Claude) and `mcp.json` (portable) must use only
+- `plugins/answering-service-care/` is the package root for every app: the portable
+  `plugin.json` and `mcp.json` sit beside the Claude manifest and the skills. Don't add
+  logo fields to the portable `plugin.json`; the ChatGPT build adds them.
+- Both `plugins/answering-service-care/.mcp.json` (Claude) and `plugins/answering-service-care/mcp.json` (portable) must use only
   `https://mcp.answeringservicecare.com/api/v2/mcp` for the customer server.
 - Do not add unrelated public research, pricing, documentation or privileged service tools to this customer plugin.
 - All customer actions require matching OAuth membership and backend RBAC.
@@ -25,7 +28,7 @@ Do not put customer skills under `claude/` or `chatgpt/` independently.
   saying what to do when it isn't in the tool list.
 - Customers can't delete an escalation level. Skills never offer to.
 - Write for the customer: plain language, no em dashes, made-up example
-  names such as Dr. Lee and Northwind.
+  names such as Sam Lee and Northwind.
 - Add every new skill to `EXPECTED_SKILLS` in `tests/test_package.py` and to
   the skills table in `README.md`.
 - Run `python3 tests/test_package.py` before PR submission.

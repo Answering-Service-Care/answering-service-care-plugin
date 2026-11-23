@@ -38,9 +38,9 @@ def read_json(path):
 def check():
     claude = read_json(f"{PLUGIN}/.claude-plugin/plugin.json")
     marketplace = read_json(".claude-plugin/marketplace.json")
-    portable = read_json("plugin.json")
+    portable = read_json(f"{PLUGIN}/plugin.json")
     cmcp = read_json(f"{PLUGIN}/.mcp.json")
-    pmcp = read_json("mcp.json")
+    pmcp = read_json(f"{PLUGIN}/mcp.json")
     assert claude["name"] == portable["name"] == EXPECTED_NAME
     assert claude["version"] == portable["version"]
     listed = marketplace["plugins"]
@@ -70,9 +70,9 @@ def check():
     assert len(listing["defaultPrompt"]) <= 3
     assert all(len(p) <= 128 for p in listing["defaultPrompt"])
     assert claude["privacyPolicyUrl"] == listing["privacyPolicyURL"]
-    logo = PLUGIN_DIR / listing["logo"]
-    width, height = struct.unpack(">II", logo.read_bytes()[16:24])
-    assert logo.read_bytes()[:8] == b"\x89PNG\r\n\x1a\n" and width == height >= 48, (width, height)
+    assert "logo" not in listing and "composerIcon" not in listing, "the ZIP build adds the logo fields"
+    assert claude["repository"] == portable["repository"]
+    assert claude["supportUrl"].startswith("https://")
     for key in ("websiteURL", "supportURL", "privacyPolicyURL", "termsOfServiceURL"):
         assert listing[key].startswith("https://"), key
     listing_text = json.dumps([portable["description"], listing]).lower()
@@ -108,8 +108,27 @@ def check():
                 assert "mcp.kauneonga.com" not in data
                 assert "answeringservicecare.com/mcp" not in data
     check_chatgpt_package()
+    check_review_metadata()
     check_directory_folder()
     print("PASS: manifests, single skill source, endpoint, OAuth, safety checks, ChatGPT package")
+
+
+def check_review_metadata():
+    """OpenAI's first MCP review needs exactly 5 positive and 3 negative test cases."""
+    review = read_json(f"{PLUGIN}/plugin.json")["extensions"]["com.openai"]["review"]
+    cases = review["test_cases"]
+    assert len(cases["positive"]) == 5 and len(cases["negative"]) == 3, cases
+    served = set(re.findall(r"`([a-z]+_[a-z_]+)`", (ROOT / "docs" / "TOOLS.md").read_text(encoding="utf-8")))
+    for case in cases["positive"]:
+        assert case["prompt"] and case["expected_behavior"] and len(case["description"]) <= 4000, case
+        for tool in (t.strip() for t in case["tools_triggered"].split(",")):
+            assert tool in served, f"{tool} is not a client connector tool"
+    for case in cases["negative"]:
+        assert case["prompt"] and case["description"], case
+    text = json.dumps(cases).lower()
+    for word in ("billing", "balance", "pay"):
+        assert not re.search(r"\b" + word, text), word
+    assert "test_credentials" not in review and "reviewer_instructions" not in review, "reviewer access goes in the dashboard"
 
 
 def check_directory_folder():
@@ -126,6 +145,8 @@ def check_directory_folder():
     assert (PLUGIN_DIR / "LICENSE").read_text(encoding="utf-8") == (ROOT / "LICENSE").read_text(encoding="utf-8")
     assert not (ROOT / ".claude-plugin" / "plugin.json").exists(), "Claude manifest lives in the plugin folder"
     assert not (ROOT / ".mcp.json").exists(), "Claude connector config lives in the plugin folder"
+    for name in ("plugin.json", "mcp.json", "skills"):
+        assert not (ROOT / name).exists(), f"{name} lives in the plugin folder, beside the skills"
 
 
 def check_chatgpt_package():
@@ -139,10 +160,20 @@ def check_chatgpt_package():
             skills = {n.split("/")[1] for n in names if n.startswith("skills/")}
             assert skills == EXPECTED_SKILLS - {"billing-handoff"}, skills
             assert {"plugin.json", "mcp.json", "LICENSE", "assets/logo.png"} <= names, names
+            listing = json.loads(zf.read("plugin.json"))["extensions"]["com.openai"]["interface"]
+            for key in ("logo", "composerIcon"):
+                logo = zf.read(listing[key].lstrip("./"))
+                width, height = struct.unpack(">II", logo[16:24])
+                assert logo[:8] == b"\x89PNG\r\n\x1a\n" and width == height >= 48, (key, width, height)
             assert not any(n.startswith(".claude-plugin/") or n == ".mcp.json" for n in names), names
             router = zf.read("skills/answering-service-care/SKILL.md").decode("utf-8")
             assert "billing-handoff" not in router
             assert "message-triage" in router
+        out = build_chatgpt_package.build(pathlib.Path(tmp) / "app.zip", "app-test")
+        with zipfile.ZipFile(out) as zf:
+            assert json.loads(zf.read("plugin.json"))["name"] == "app-test"
+            server = json.loads(zf.read("mcp.json"))["mcpServers"][EXPECTED_NAME]
+            assert "auth" not in server.get("extensions", {}).get("com.openai", {}), server
 
 
 if __name__ == "__main__":

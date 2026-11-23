@@ -5,7 +5,7 @@ Client Portal login, then ask about your messages, To Dos and who's on call, and
 the changes your login allows.
 
 Try asking: "What came in overnight that needs action?", "Who's on call tonight?" or
-"Move Saturday's shift from Dr. Lee to Dr. Patel."
+"Move Saturday's shift from Sam Lee to Jordan Patel."
 
 ## What's included
 
