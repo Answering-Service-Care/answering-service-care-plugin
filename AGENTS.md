@@ -1,12 +1,16 @@
 # Development rules
 
 This repository contains only customer-facing ASC Claude and ChatGPT plugin
-metadata, MCP configuration, and skills. Keep **one shared** `skills/` tree.
+metadata, MCP configuration, and skills. Keep **one shared** skills tree, in
+`plugins/answering-service-care/skills/`. That folder is the Claude plugin and
+what the Claude directory scans: keep only Markdown, JSON, the logo PNG and the
+license there, with no scripts, no AGENTS.md or CLAUDE.md, and no file that names
+the logo (`tests/test_package.py` checks this).
 Do not put customer skills under `claude/` or `chatgpt/` independently.
 
 - Never put credentials, tokens, signing keys, production customer data,
   Admin/Support tools, or secret service-key instructions in this repository.
-- Both `.mcp.json` (Claude) and `mcp.json` (portable) must use only
+- Both `plugins/answering-service-care/.mcp.json` (Claude) and `mcp.json` (portable) must use only
   `https://mcp.answeringservicecare.com/api/v2/mcp` for the customer server.
 - Do not add unrelated public research, pricing, documentation or privileged service tools to this customer plugin.
 - All customer actions require matching OAuth membership and backend RBAC.

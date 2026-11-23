@@ -1,6 +1,6 @@
 {
   "name": "answering-service-care",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Check your Answering Service Care messages, set up follow-up To Dos, update who's on call and how they're reached, and see your balance with a secure link to pay in the Client Portal.",
   "author": {
     "name": "Answering Service Care",
@@ -8,6 +8,7 @@
   },
   "homepage": "https://answeringservicecare.com/",
   "license": "MIT",
+  "privacyPolicyUrl": "https://answeringservicecare.com/privacy-policy/",
   "keywords": [
     "answering-service",
     "messages",
