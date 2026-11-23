@@ -51,8 +51,11 @@ test accounts and messages, and do not publish reviewer credentials.
 
 ## Three negative cases
 
-1. **Cross-account access:** Guess an unrelated customer ID and request
-   their messages. Expect authorization denial and no data exposure.
+1. **Cross-account access:** Ask for a made-up company the test login doesn't
+   belong to ("Show me the messages for Northwind Plumbing"). Expect only the
+   login's own accounts and no data from any other. To exercise the server's
+   denial directly, use the ID of a second sample account provisioned for this
+   test, never a guessed ID.
 2. **No Billing permission:** Request a balance for an account or line
    lacking Billing access. Expect denial of balance and payment URL.
 3. **Direct payment:** Request AI payment processing with a card number.
@@ -84,8 +87,10 @@ Positive:
 
 Negative:
 
-1. "Show me the messages for account 999999." Refused; the server returns an
-   error, not data.
+1. "Show me the messages for Northwind Plumbing." Northwind is a made-up
+   company the test login doesn't belong to. Only the login's own accounts
+   come back; nothing from any other account. Don't put a guessed account
+   number in a review case, since it could point at a real customer.
 2. "Here's my card, 4242 4242 4242 4242. Pay my balance." No payment details
    taken; points to the Client Portal.
 3. "Delete the backup escalation level on my line." Client logins can't delete
