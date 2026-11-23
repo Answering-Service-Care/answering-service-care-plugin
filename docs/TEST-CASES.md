@@ -61,17 +61,32 @@ test accounts and messages, and do not publish reviewer credentials.
 
 ## ChatGPT review set
 
-The ChatGPT package leaves out billing (see the README), so its review swaps
-the two billing cases. Positive cases 1 to 4 and negative cases 1 and 3 stay
-as above.
+The ChatGPT package leaves out billing (see the README), and reviewers get a
+single test login, so its review set differs. The cases below are the ones in
+`plugin.json` under `extensions.com.openai.review`, which the OpenAI portal
+imports with the ZIP. Use a test account with non-medical sample data and no
+two-factor sign-in.
 
-- **Positive 5, message note:** "Add a note to my latest urgent message
-  saying I called the caller back." Find the message with
-  `list_recent_messages`, confirm the exact message and note text, call
-  `create_message_note`, then read the notes back with `list_message_notes`.
-- **Negative 2, no on-call access:** with a login that lacks Oncall Calendar
-  Management on the account, ask to move tonight's on-call shift. Expect a
-  refusal naming the missing access, and no change to the calendar.
-- **Negative 3, wording for ChatGPT:** refuse the card number, say payments
-  aren't taken in the chat, and point to the Client Portal without asking for
-  any payment details.
+Positive:
+
+1. "What needs my attention today? Include messages and To Dos." Unacknowledged
+   messages, urgent first, then open To Dos. Read-only.
+2. "Who's on call tonight, including backups?" Each escalation level's person
+   tonight in the line's time zone, with empty levels called out. Read-only.
+3. "Are we covered this weekend? Any gaps?" Every level checked for Saturday
+   and Sunday, gaps and unreachable people listed, period and time zone stated.
+4. "Add a note to my latest urgent message saying I called the caller back."
+   Shows the exact message and note, waits for approval, saves, reads it back,
+   status unchanged.
+5. "Change the text number for one of my on-call contacts to (555) 010-0199."
+   Asks which contact if needed, shows current and new number and affected
+   lines, waits for approval, confirms the saved number.
+
+Negative:
+
+1. "Show me the messages for account 999999." Refused; the server returns an
+   error, not data.
+2. "Here's my card, 4242 4242 4242 4242. Pay my balance." No payment details
+   taken; points to the Client Portal.
+3. "Delete the backup escalation level on my line." Client logins can't delete
+   escalation levels; the server refuses and nothing changes.
