@@ -9,6 +9,12 @@ import tempfile
 import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+PLUGIN = "plugins/answering-service-care"
+PLUGIN_DIR = ROOT / PLUGIN
+# The Claude directory accepts only these files in a plugin from an organization that
+# isn't Verified, and refuses a version where any file names an image it could run.
+DIRECTORY_SUFFIXES = {".md", ".json", ".png"}
+DIRECTORY_NAMES = {"LICENSE"}
 EXPECTED_ENDPOINT = "https://mcp.answeringservicecare.com/api/v2/mcp"
 EXPECTED_NAME = "answering-service-care"
 EXPECTED_SKILLS = {
@@ -30,16 +36,16 @@ def read_json(path):
 
 
 def check():
-    claude = read_json(".claude-plugin/plugin.json")
+    claude = read_json(f"{PLUGIN}/.claude-plugin/plugin.json")
     marketplace = read_json(".claude-plugin/marketplace.json")
     portable = read_json("plugin.json")
-    cmcp = read_json(".mcp.json")
+    cmcp = read_json(f"{PLUGIN}/.mcp.json")
     pmcp = read_json("mcp.json")
     assert claude["name"] == portable["name"] == EXPECTED_NAME
     assert claude["version"] == portable["version"]
     listed = marketplace["plugins"]
     assert [p["name"] for p in listed] == [EXPECTED_NAME], listed
-    assert listed[0]["source"] == "./"
+    assert listed[0]["source"] == f"./{PLUGIN}"
     assert listed[0]["version"] == claude["version"]
     assert portable["$schema"].endswith("plugin.schema.json")
     assert pmcp["$schema"].endswith("mcp.schema.json")
@@ -63,7 +69,8 @@ def check():
     assert len(listing["longDescription"]) <= 4000
     assert len(listing["defaultPrompt"]) <= 3
     assert all(len(p) <= 128 for p in listing["defaultPrompt"])
-    logo = ROOT / listing["logo"]
+    assert claude["privacyPolicyUrl"] == listing["privacyPolicyURL"]
+    logo = PLUGIN_DIR / listing["logo"]
     width, height = struct.unpack(">II", logo.read_bytes()[16:24])
     assert logo.read_bytes()[:8] == b"\x89PNG\r\n\x1a\n" and width == height >= 48, (width, height)
     for key in ("websiteURL", "supportURL", "privacyPolicyURL", "termsOfServiceURL"):
@@ -72,7 +79,7 @@ def check():
     for word in ("billing", "balance", "pay"):
         assert not re.search(r"\b" + word, listing_text), word
 
-    skills_dir = ROOT / "skills"
+    skills_dir = PLUGIN_DIR / "skills"
     actual = {p.name for p in skills_dir.iterdir() if p.is_dir()}
     assert actual == EXPECTED_SKILLS, (actual, EXPECTED_SKILLS)
     for name in EXPECTED_SKILLS:
@@ -101,7 +108,24 @@ def check():
                 assert "mcp.kauneonga.com" not in data
                 assert "answeringservicecare.com/mcp" not in data
     check_chatgpt_package()
+    check_directory_folder()
     print("PASS: manifests, single skill source, endpoint, OAuth, safety checks, ChatGPT package")
+
+
+def check_directory_folder():
+    """The folder submitted to the Claude directory holds only files it accepts."""
+    for path in sorted(p for p in PLUGIN_DIR.rglob("*") if p.is_file()):
+        rel = path.relative_to(PLUGIN_DIR).as_posix()
+        assert path.suffix in DIRECTORY_SUFFIXES or path.name in DIRECTORY_NAMES, rel
+        assert path.name.lower() not in {"agents.md", "claude.md", "claude.local.md"}, rel
+        if path.suffix != ".png":
+            text = path.read_text(encoding="utf-8")
+            assert not text.startswith("#!"), rel
+            for image in PLUGIN_DIR.rglob("*.png"):
+                assert image.name not in text, f"{rel} names {image.name}"
+    assert (PLUGIN_DIR / "LICENSE").read_text(encoding="utf-8") == (ROOT / "LICENSE").read_text(encoding="utf-8")
+    assert not (ROOT / ".claude-plugin" / "plugin.json").exists(), "Claude manifest lives in the plugin folder"
+    assert not (ROOT / ".mcp.json").exists(), "Claude connector config lives in the plugin folder"
 
 
 def check_chatgpt_package():

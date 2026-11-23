@@ -6,6 +6,10 @@ one, so the ChatGPT package is built without the billing-handoff skill:
 OpenAI's commerce rules don't allow a link to pay a service bill. The router
 skill's billing row is dropped for the same reason. Claude keeps both.
 
+Skills and the logo live in the Claude plugin folder
+(plugins/answering-service-care/) and keep their skills/ and assets/ paths in
+the ZIP.
+
 Usage: python3 scripts/build_chatgpt_package.py [output.zip]
 """
 import pathlib
@@ -19,22 +23,24 @@ ROUTER_SKILL = "skills/answering-service-care/SKILL.md"
 # The portable manifest, its MCP config and the license; skills and any
 # listing assets (assets/) are added below.
 TOP_LEVEL = ["plugin.json", "mcp.json", "LICENSE"]
+PLUGIN_DIR = ROOT / "plugins" / "answering-service-care"
 
 
 def package_files():
-    files = [ROOT / name for name in TOP_LEVEL]
-    for path in sorted((ROOT / "skills").rglob("*")):
-        if path.is_file() and path.relative_to(ROOT / "skills").parts[0] not in EXCLUDED_SKILLS:
-            files.append(path)
-    assets = ROOT / "assets"
+    """(source path, name in the ZIP) pairs."""
+    files = [(ROOT / name, name) for name in TOP_LEVEL]
+    for path in sorted((PLUGIN_DIR / "skills").rglob("*")):
+        if path.is_file() and path.relative_to(PLUGIN_DIR / "skills").parts[0] not in EXCLUDED_SKILLS:
+            files.append((path, path.relative_to(PLUGIN_DIR).as_posix()))
+    assets = PLUGIN_DIR / "assets"
     if assets.is_dir():
-        files.extend(sorted(p for p in assets.rglob("*") if p.is_file()))
+        files.extend((p, p.relative_to(PLUGIN_DIR).as_posix()) for p in sorted(assets.rglob("*")) if p.is_file())
     return files
 
 
-def contents(path):
+def contents(path, name):
     data = path.read_bytes()
-    if path.relative_to(ROOT).as_posix() == ROUTER_SKILL:
+    if name == ROUTER_SKILL:
         lines = data.decode("utf-8").splitlines(keepends=True)
         data = "".join(l for l in lines if "billing-handoff" not in l).encode("utf-8")
     return data
@@ -44,9 +50,8 @@ def build(out=DEFAULT_OUT):
     out = pathlib.Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as zf:
-        for path in package_files():
-            data = contents(path)
-            name = path.relative_to(ROOT).as_posix()
+        for path, name in package_files():
+            data = contents(path, name)
             if name.endswith((".md", ".json")):
                 assert b"billing-handoff" not in data, f"{name} still refers to billing-handoff"
             info = zipfile.ZipInfo(name, date_time=(2026, 1, 1, 0, 0, 0))

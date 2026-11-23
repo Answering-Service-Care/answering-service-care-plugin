@@ -29,7 +29,8 @@
 - [ ] Verify separate Client AI MCP tools before adding any AI management skills.
 
 ## Publication
-- [ ] Claude: test `claude --plugin-dir .` then submit root plugin path `.`.
+- [ ] Claude: test `claude --plugin-dir plugins/answering-service-care` then submit
+      plugin path `plugins/answering-service-care`.
 - [ ] ChatGPT: submit With MCP after authenticated remote MCP testing.
 - [x] ChatGPT listing: subtitle within 30 characters, support URL, no billing
       in the listing text; `scripts/build_chatgpt_package.py` builds the ZIP
