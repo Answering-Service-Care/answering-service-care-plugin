@@ -169,6 +169,11 @@ def check_chatgpt_package():
             router = zf.read("skills/answering-service-care/SKILL.md").decode("utf-8")
             assert "billing-handoff" not in router
             assert "message-triage" in router
+        out = build_chatgpt_package.build(pathlib.Path(tmp) / "app.zip", "app-test")
+        with zipfile.ZipFile(out) as zf:
+            assert json.loads(zf.read("plugin.json"))["name"] == "app-test"
+            server = json.loads(zf.read("mcp.json"))["mcpServers"][EXPECTED_NAME]
+            assert "auth" not in server.get("extensions", {}).get("com.openai", {}), server
 
 
 if __name__ == "__main__":

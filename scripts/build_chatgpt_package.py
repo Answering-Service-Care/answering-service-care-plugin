@@ -12,7 +12,11 @@ beside one shared skills/ tree. The Claude directory refuses a plugin folder
 where a file names an image, so the portable manifest in the repository has
 no logo fields; they are added to the copy written into the ZIP.
 
-Usage: python3 scripts/build_chatgpt_package.py [output.zip]
+To update the plugin already created in the OpenAI dashboard, pass its app id:
+the dashboard requires plugin.json's name to be that id, and refuses an
+mcp.json sign-in block because the app's connection is configured there.
+
+Usage: python3 scripts/build_chatgpt_package.py [output.zip] [--openai-app-id app-...]
 """
 import json
 import pathlib
@@ -44,13 +48,25 @@ def package_files():
 LOGO = "./assets/logo.png"
 
 
-def contents(path, name):
+def contents(path, name, openai_app_id=None):
     data = path.read_bytes()
+    if name == "mcp.json" and openai_app_id:
+        config = json.loads(data.decode("utf-8"))
+        for server in config["mcpServers"].values():
+            openai = server.get("extensions", {}).get("com.openai", {})
+            openai.pop("auth", None)
+            if not openai:
+                server.get("extensions", {}).pop("com.openai", None)
+            if not server.get("extensions", True):
+                server.pop("extensions")
+        data = (json.dumps(config, indent=2) + "\n").encode("utf-8")
     if name == "plugin.json":
         manifest = json.loads(data.decode("utf-8"))
         interface = manifest["extensions"]["com.openai"]["interface"]
         interface["logo"] = LOGO
         interface["composerIcon"] = LOGO
+        if openai_app_id:
+            manifest["name"] = openai_app_id
         data = (json.dumps(manifest, indent=2) + "\n").encode("utf-8")
     if name == ROUTER_SKILL:
         lines = data.decode("utf-8").splitlines(keepends=True)
@@ -58,12 +74,12 @@ def contents(path, name):
     return data
 
 
-def build(out=DEFAULT_OUT):
+def build(out=DEFAULT_OUT, openai_app_id=None):
     out = pathlib.Path(out)
     out.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as zf:
         for path, name in package_files():
-            data = contents(path, name)
+            data = contents(path, name, openai_app_id)
             if name.endswith((".md", ".json")):
                 assert b"billing-handoff" not in data, f"{name} still refers to billing-handoff"
             info = zipfile.ZipInfo(name, date_time=(2026, 1, 1, 0, 0, 0))
@@ -73,4 +89,10 @@ def build(out=DEFAULT_OUT):
 
 
 if __name__ == "__main__":
-    print(build(sys.argv[1] if len(sys.argv) > 1 else DEFAULT_OUT))
+    args = sys.argv[1:]
+    app_id = None
+    if "--openai-app-id" in args:
+        i = args.index("--openai-app-id")
+        app_id = args[i + 1]
+        del args[i : i + 2]
+    print(build(args[0] if args else DEFAULT_OUT, app_id))
