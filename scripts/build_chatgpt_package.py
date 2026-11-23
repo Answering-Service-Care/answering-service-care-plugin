@@ -6,12 +6,15 @@ one, so the ChatGPT package is built without the billing-handoff skill:
 OpenAI's commerce rules don't allow a link to pay a service bill. The router
 skill's billing row is dropped for the same reason. Claude keeps both.
 
-Skills and the logo live in the Claude plugin folder
-(plugins/answering-service-care/) and keep their skills/ and assets/ paths in
-the ZIP.
+plugins/answering-service-care/ is the package root for every app: the Claude
+manifest and the portable Agent Plugins manifest (plugin.json, mcp.json) sit
+beside one shared skills/ tree. The Claude directory refuses a plugin folder
+where a file names an image, so the portable manifest in the repository has
+no logo fields; they are added to the copy written into the ZIP.
 
 Usage: python3 scripts/build_chatgpt_package.py [output.zip]
 """
+import json
 import pathlib
 import sys
 import zipfile
@@ -28,7 +31,7 @@ PLUGIN_DIR = ROOT / "plugins" / "answering-service-care"
 
 def package_files():
     """(source path, name in the ZIP) pairs."""
-    files = [(ROOT / name, name) for name in TOP_LEVEL]
+    files = [(PLUGIN_DIR / name, name) for name in TOP_LEVEL]
     for path in sorted((PLUGIN_DIR / "skills").rglob("*")):
         if path.is_file() and path.relative_to(PLUGIN_DIR / "skills").parts[0] not in EXCLUDED_SKILLS:
             files.append((path, path.relative_to(PLUGIN_DIR).as_posix()))
@@ -38,8 +41,17 @@ def package_files():
     return files
 
 
+LOGO = "./assets/logo.png"
+
+
 def contents(path, name):
     data = path.read_bytes()
+    if name == "plugin.json":
+        manifest = json.loads(data.decode("utf-8"))
+        interface = manifest["extensions"]["com.openai"]["interface"]
+        interface["logo"] = LOGO
+        interface["composerIcon"] = LOGO
+        data = (json.dumps(manifest, indent=2) + "\n").encode("utf-8")
     if name == ROUTER_SKILL:
         lines = data.decode("utf-8").splitlines(keepends=True)
         data = "".join(l for l in lines if "billing-handoff" not in l).encode("utf-8")

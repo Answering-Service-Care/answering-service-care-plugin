@@ -1,12 +1,14 @@
 {
   "name": "answering-service-care",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "Check your Answering Service Care messages, set up follow-up To Dos, update who's on call and how they're reached, and see your balance with a secure link to pay in the Client Portal.",
   "author": {
     "name": "Answering Service Care",
     "url": "https://answeringservicecare.com/"
   },
   "homepage": "https://answeringservicecare.com/",
+  "repository": "https://github.com/Answering-Service-Care/answering-service-care-plugin",
+  "supportUrl": "https://answeringservicecare.com/contact-us/",
   "license": "MIT",
   "privacyPolicyUrl": "https://answeringservicecare.com/privacy-policy/",
   "keywords": [

@@ -10,7 +10,10 @@ Do not put customer skills under `claude/` or `chatgpt/` independently.
 
 - Never put credentials, tokens, signing keys, production customer data,
   Admin/Support tools, or secret service-key instructions in this repository.
-- Both `plugins/answering-service-care/.mcp.json` (Claude) and `mcp.json` (portable) must use only
+- `plugins/answering-service-care/` is the package root for every app: the portable
+  `plugin.json` and `mcp.json` sit beside the Claude manifest and the skills. Don't add
+  logo fields to the portable `plugin.json`; the ChatGPT build adds them.
+- Both `plugins/answering-service-care/.mcp.json` (Claude) and `plugins/answering-service-care/mcp.json` (portable) must use only
   `https://mcp.answeringservicecare.com/api/v2/mcp` for the customer server.
 - Do not add unrelated public research, pricing, documentation or privileged service tools to this customer plugin.
 - All customer actions require matching OAuth membership and backend RBAC.

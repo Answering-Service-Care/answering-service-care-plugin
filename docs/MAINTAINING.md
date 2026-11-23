@@ -13,8 +13,8 @@ Keep this repository limited to authenticated customer workflows. Do not add unr
 | `plugins/answering-service-care/.claude-plugin/plugin.json` | Claude plugin identity and metadata |
 | `.claude-plugin/marketplace.json` | Claude marketplace listing this plugin, so customers can install it from this repository |
 | `plugins/answering-service-care/.mcp.json` | Claude connector configuration |
-| `plugin.json` | Portable Agent Plugins manifest, including the ChatGPT listing |
-| `mcp.json` | Portable connector configuration with the sign-in declaration |
+| `plugins/answering-service-care/plugin.json` | Portable Agent Plugins manifest, including the ChatGPT listing (the ZIP build adds its logo fields) |
+| `plugins/answering-service-care/mcp.json` | Portable connector configuration with the sign-in declaration |
 | `plugins/answering-service-care/skills/` | One shared source of skills for Claude and ChatGPT |
 | `plugins/answering-service-care/assets/logo.png` | ChatGPT listing logo: the 512 px icon the connector already serves |
 | `scripts/build_chatgpt_package.py` | Builds the ChatGPT upload ZIP |
